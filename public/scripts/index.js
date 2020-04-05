@@ -21,7 +21,8 @@ socket.on('play', e => {
     console.log('play', e);
     // not seek again
     timestamp.seek.add(e);
-    videoPlayer.currentTime = e;
+    if (Math.abs(videoPlayer.currentTime - e) > 0.1)
+      videoPlayer.currentTime = e;
     videoPlayer.play();
   }
 })
@@ -34,7 +35,8 @@ socket.on('pause', e => {
 socket.on('seeked', e => {
   if (!timestamp.seek.has(e)) {
     console.log('seeked', e);
-    videoPlayer.currentTime = e;
+    if (Math.abs(videoPlayer.currentTime - e) > 0.1)
+      videoPlayer.currentTime = e;
   }
 })
 
