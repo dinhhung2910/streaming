@@ -1,22 +1,32 @@
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
-const app = express()
-var server  = require('http').createServer(app);
+const app = express();
+const connectDB = require('./config/db');
 
+var server  = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-app.use(express.static(path.join(__dirname, 'public')))
+// Connect database
+connectDB();
+
+// Init middleware
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json({extended: false}));
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/index.html'))
 })
 
+// Define Routes
+app.use('/api/movies', require('./routes/api/movies'));
+
 app.get('/index.html', function(req, res) {
   res.sendFile(path.join(__dirname + '/index.html'))
 })
 
-app.get('/streaming', function(req, res) {
+app.get('/streaming/**', function(req, res) {
+  // fs.readFile()
   res.sendFile(path.join(__dirname + '/streaming.html'))
 })
 
@@ -73,7 +83,7 @@ function initTimestamp() {
 initTimestamp();
 
 setInterval(() => {
-  console.info('reseting time log...');
+  // console.info('reseting time log...');
   initTimestamp();
 }, 2000);
 

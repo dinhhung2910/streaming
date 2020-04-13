@@ -1,10 +1,17 @@
 <html>
   <head>
     <title>Video stream sample</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      #videoPlayer {
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
     <video id="videoPlayer" controls muted="muted"> 
-      <source src="http://localhost:3000/video" type="video/mp4">
+      <source src="/video" type="video/mp4">
+      <track src="/subtitles/test.vtt" srclang="vi" kind="subtitles" label="vietnamese">
     </video>
   </body>
   <script src="/socket.io/socket.io.js"></script>
