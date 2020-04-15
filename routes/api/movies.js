@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const Movie = require('../../models/Movie');
+const config = require('config')
 
 // @ROUTE   GET /api/movies
 // @DESC    Get all movies
 router.get('/', async(req, res) => {
   try {
-    const movies = await Movie.find({}).select('-subtitles');
+    const movies = await Movie.find({}).select(['-subtitles', '-onlineLink']);
     res.json(movies);
   } catch (error) {
     console.error(error.message);
@@ -56,6 +57,7 @@ router.post(
         year,
         tags,
         point,
+        onlineLink,
         images,
         subtitles
       } = req.body;
@@ -65,8 +67,9 @@ router.post(
       code = code.replace(/ /g, '-');
       code = code + '-' + (Date.now() % 100000);
 
+      if (!onlineLink) onlineLink = config.get("defaultFileName");
       let movieObject = {
-        name, code, year, tags, point, images, subtitles
+        name, code, year, tags, point, images, subtitles, onlineLink
       }
       let movie = new Movie(movieObject);
       await movie.save();
