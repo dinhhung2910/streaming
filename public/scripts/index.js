@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', init, false);
 let videoPlayer;
-let socket = io.connect();
+let socket = io('/room');
 let timestamp = {};
 
 function initTimestamp() {
@@ -14,7 +14,6 @@ setInterval(() => {
   // console.info('reseting time log...');
   initTimestamp();
 }, 10000);
-
 
 socket.on('play', e => {
   if (!timestamp.play.has(e)) {
@@ -49,8 +48,10 @@ function init() {
   loadAllMovie()
   try {
     let code = window.location.pathname.split('/')[2];
-    loadMovieByCode(code).then(video => {
-
+    loadMovieByCode(code).then(res => {
+      let {video, id} = res;
+      // join this specific chanel
+      socket.emit('create', id);
       videoPlayer = video;
 
       videoPlayer.addEventListener("play", (e) => {
@@ -128,7 +129,7 @@ function loadAllMovie() {
       categories.innerHTML = movie.tags.map(tag => `<a href="#">${tag.code}</a>`).join('');
       point.innerHTML = movie.point;
 
-      console.log(div);
+      // console.log(div);
       divAllMovies.insertBefore(div, divAllMovies.lastElementChild);
     });
   }).catch(err => {
@@ -169,7 +170,7 @@ function loadMovieByCode(code) {
           videoPlayer.append(source);
 
           document.getElementById('video-container').append(videoPlayer);
-          resolve(videoPlayer);
+          resolve({video: videoPlayer, id: movie._id});
 
         }).catch(err => {
           console.log(err);

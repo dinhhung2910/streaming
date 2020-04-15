@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 
 var server  = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+const roomSocket = require('./socket/room')(io);
 
 // Connect database
 connectDB();
@@ -73,41 +74,6 @@ server.listen(3000, function () {
   console.log('Listening on port 3000!')
 })
 
-let timestamp = {};
-
-function initTimestamp() {
-  timestamp.play = new Set();
-  timestamp.pause = new Set();
-  timestamp.seek = new Set();
-};
-initTimestamp();
-
-setInterval(() => {
-  // console.info('reseting time log...');
-  initTimestamp();
-}, 2000);
-
 io.on('connection', function(socket){
-  // console.log('a user connected');
-  socket.on('play', (e) => {
-    if (!timestamp.play.has(e)) {
-      console.log('play', e);
-      socket.broadcast.emit('play', e);
-      timestamp.play.add(e);
-    }
-  })
-  socket.on('pause', (e) => {
-    if (!timestamp.pause.has(e)) {
-      console.log('pause', e);
-      socket.broadcast.emit('pause', e);
-      timestamp.pause.add(e);
-    }
-  })
-  socket.on('seeked', (e) => {
-    if (!timestamp.seek.has(e)) {
-      console.log('seeked', e);
-      socket.broadcast.emit('seeked', e);
-      timestamp.seek.add(e);
-    }
-  })
+  
 });
