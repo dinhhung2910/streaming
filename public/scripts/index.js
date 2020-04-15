@@ -155,7 +155,7 @@ function loadMovieByCode(code) {
           videoPlayer.id = 'videoPlayer';
 
           let source = document.createElement('source');
-          source.setAttribute('src', '/video');
+          source.setAttribute('src', movie.onlineLink);
           source.setAttribute('type', 'video/mp4');
 
           movie.subtitles.forEach(subtitle => {

@@ -31,8 +31,11 @@ app.get('/streaming/**', function(req, res) {
   res.sendFile(path.join(__dirname + '/streaming.html'))
 })
 
-app.get('/video', function(req, res) {
-  const path = 'assets/sample.mp4'
+/**
+ * @url   GET /video/:file
+ */
+app.get('/video/:filename', function(req, res) {
+  const path = 'assets/' + req.params.filename;
   const stat = fs.statSync(path)
   const fileSize = stat.size
   const range = req.headers.range
