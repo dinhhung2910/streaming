@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', init, false);
 let videoPlayer;
 let socket = io('/room');
 let timestamp = {};
+let videoId;
 
 function initTimestamp() {
   timestamp.play = new Set();
@@ -9,6 +10,22 @@ function initTimestamp() {
   timestamp.seek = new Set();
 };
 initTimestamp();
+
+// check if socket is alive or not
+// 
+function checkSocketState(socket, roomId, period) {
+  let previousSocketID = '';
+  if (!period) period = 1000;
+  return setInterval(() => {
+    if (!socket.connected) return;
+    if (socket.id != previousSocketID) {
+      // just lost connection
+      console.log('Rejoin room', roomId);
+      previousSocketID = socket.id;
+      socket.emit('create', roomId);
+    }
+  }, period);
+}
 
 setInterval(() => {
   // console.info('reseting time log...');
@@ -51,7 +68,10 @@ function init() {
     loadMovieByCode(code).then(res => {
       let {video, id} = res;
       // join this specific chanel
-      socket.emit('create', id);
+      // socket.emit('create', id);
+      checkSocketState(socket, id, 1000);
+      videoId = id;
+
       videoPlayer = video;
 
       videoPlayer.addEventListener("play", (e) => {
