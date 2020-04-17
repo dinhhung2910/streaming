@@ -3,6 +3,9 @@ let videoPlayer;
 let socket = io('/room');
 let timestamp = {};
 let videoId;
+// is true if this action cause by other client, then not broadcast it
+let isSocketAction = false;
+let __disabledActionCode = 0;
 
 function initTimestamp() {
   timestamp.play = new Set();
@@ -11,6 +14,14 @@ function initTimestamp() {
 };
 initTimestamp();
 
+function disableActions() {
+  clearTimeout(__disabledActionCode);
+  isSocketAction = true;
+  __disabledActionCode = setTimeout(() => {
+    isSocketAction = false;
+  }, 100)
+}
+ 
 // check if socket is alive or not
 // 
 function checkSocketState(socket, roomId, period) {
@@ -40,17 +51,20 @@ socket.on('play', e => {
     if (Math.abs(videoPlayer.currentTime - e) > 0.1)
       videoPlayer.currentTime = e;
     videoPlayer.play();
+    disableActions();
   }
 })
 socket.on('pause', e => {
   if (!timestamp.pause.has(e)) {
     console.log('pause', e);
     videoPlayer.pause();
+    disableActions();
   }
 })
 socket.on('seeked', e => {
   if (!timestamp.seek.has(e)) {
     console.log('seeked', e);
+    disableActions();
     if (Math.abs(videoPlayer.currentTime - e) > 0.1)
       videoPlayer.currentTime = e;
   }
@@ -75,8 +89,7 @@ function init() {
       videoPlayer = video;
 
       videoPlayer.addEventListener("play", (e) => {
-        console.log(e);
-        if (timestamp.play.has(e)) return;
+        if (timestamp.play.has(e) || isSocketAction) return;
         if (e.isTrusted) {
           socket.emit("play", videoPlayer.currentTime);
           timestamp.play.add(e);
@@ -84,8 +97,7 @@ function init() {
       });
     
       videoPlayer.addEventListener("pause", (e) => {
-        console.log(e);
-        if (timestamp.pause.has(e)) return;
+        if (timestamp.pause.has(e) || isSocketAction) return;
         if (e.isTrusted) {
           socket.emit("pause", videoPlayer.currentTime);
           timestamp.pause.add(e);
@@ -93,8 +105,7 @@ function init() {
       });
     
       videoPlayer.addEventListener("seeked", (e) => {
-        console.log(e);
-        if (timestamp.seek.has(e)) return;
+        if (timestamp.seek.has(e) || isSocketAction) return;
         if (e.isTrusted) {
           socket.emit("seeked", videoPlayer.currentTime);
           timestamp.seek.add(e);
