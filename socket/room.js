@@ -19,7 +19,7 @@ function roomSocket(io) {
       if (actionRecord.addRecord(1, 'play', e)) {
         let rooms = Object.keys(socket.rooms).filter(item => item!=socket.id);
         rooms.forEach(room => {
-          socket.to(room).emit('play', e);
+          socket.broadcast.to(room).emit('play', e);
         });
       }
     })
@@ -27,7 +27,7 @@ function roomSocket(io) {
       if (actionRecord.addRecord(1, 'pause', e)) {
         let rooms = Object.keys(socket.rooms).filter(item => item!=socket.id);
         rooms.forEach(room => {
-          socket.to(room).emit('pause', e);
+          socket.broadcast.to(room).emit('pause', e);
         });
       }
     })
@@ -35,7 +35,7 @@ function roomSocket(io) {
       if (actionRecord.addRecord(1, 'seek', e)) {
         let rooms = Object.keys(socket.rooms).filter(item => item!=socket.id);
         rooms.forEach(room => {
-          socket.to(room).emit('seek', e);
+          socket.broadcast.to(room).emit('seek', e);
         });
       }
     })
