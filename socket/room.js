@@ -39,6 +39,19 @@ function roomSocket(io) {
         });
       }
     })
+    
+    // when someone asking for current time when join room
+    socket.on('whattimeisit', (e) => {
+      let rooms = Object.keys(socket.rooms).filter(item => item!=socket.id);
+      rooms.forEach(room => {
+        socket.broadcast.to(room).emit('whattimeisit', socket.id);
+      });
+    })
+
+    socket.on('timeis', (e) => {
+      // console.log(e);
+      socket.to(e.to).emit('timeis', e.time)
+    })
 
   });
   // console.log('a user connected');
