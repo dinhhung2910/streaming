@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb://hungdm:incorrect@kaitovps:27017/movie-stream?readPreference=primary",
+  "defaultFileName": "/video/lancuoi.mp4"
+}
