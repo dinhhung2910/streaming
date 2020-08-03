@@ -6,6 +6,7 @@ let videoId;
 // is true if this action cause by other client, then not broadcast it
 let isSocketAction = false;
 let __disabledActionCode = 0;
+let firstPlay = true;
 
 function initTimestamp() {
   timestamp.play = new Set();
@@ -25,7 +26,9 @@ function disableActions() {
 // check if socket is alive or not
 // 
 function checkSocketState(socket, roomId, period) {
-  let previousSocketID = '';
+  let previousSocketID = socket.id;
+  socket.emit('create', roomId);
+
   if (!period) period = 1000;
   return setInterval(() => {
     if (!socket.connected) return;
@@ -44,6 +47,7 @@ setInterval(() => {
 }, 10000);
 
 socket.on('play', e => {
+  firstPlay = false;
   if (!timestamp.play.has(e)) {
     console.log('play', e);
     // not seek again
@@ -70,25 +74,42 @@ socket.on('seeked', e => {
   }
 })
 
+// ask time when join room
+socket.on('whattimeisit', (requestId) => {
+  socket.emit('timeis', {
+    to: requestId,
+    time: videoPlayer.currentTime
+  })  
+})
+socket.on('timeis', (e) => {
+  // alert(e);
+  videoPlayer.currentTime = e;
+  socket.off('timeis');
+  socket.emit('play', e);
+})
+
 /** 
 * You can manipulate the video here
 * For example: Uncomment the code below and in the index to get a Start/Stop button
 */
 function init() {
-
-  loadAllMovie()
   try {
     let code = window.location.pathname.split('/')[2];
+    loadAllMovie(code);
     loadMovieByCode(code).then(res => {
       let {video, id} = res;
       // join this specific chanel
       // socket.emit('create', id);
       checkSocketState(socket, id, 1000);
       videoId = id;
-
       videoPlayer = video;
 
       videoPlayer.addEventListener("play", (e) => {
+        if (firstPlay) {
+          socket.emit('whattimeisit');
+          firstPlay = false;
+          return;
+        }
         if (timestamp.play.has(e) || isSocketAction) return;
         if (e.isTrusted) {
           socket.emit("play", videoPlayer.currentTime);
@@ -120,7 +141,7 @@ function init() {
   // videoPlayer = document.getElementById("videoPlayer");
 }
 
-function loadAllMovie() {
+function loadAllMovie(code) {
   let template = `
     <div class="card">
       <div class="card__cover">
@@ -141,7 +162,7 @@ function loadAllMovie() {
 
   let divAllMovies = document.getElementById('all-movie');
    
-  fetch('/api/movies/').then(res => res.json()).then(movies => {
+  fetch('/api/movies/similar/' + code).then(res => res.json()).then(movies => {
     movies.forEach(movie => {
       
       let div = document.createElement('div');

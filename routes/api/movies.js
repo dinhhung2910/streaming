@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const Movie = require('../../models/Movie');
-const config = require('config')
+const config = require('config');
+const LevenshteinDistance = require('../../utils/LevensteinDistance');
 
 // @ROUTE   GET /api/movies
 // @DESC    Get all movies
@@ -16,6 +17,31 @@ router.get('/', async(req, res) => {
   }
 })
 
+// @ROUTE POST /api/movies/similar
+// @DESC  Get similarity movies with current movie
+router.get('/similar/:code', async(req, res) => {
+  try {
+    const movie = await Movie.findOne({code: req.params.code});
+    let movies = await Movie.find({}).select(['-subtitles', '-onlineLink']);
+
+    if (!movie) {
+      res.json(movies);
+    } else {
+      for (let i = 0; i < movies.length; i++) {
+        movies[i].distance = LevenshteinDistance(movie.name, movies[i].name);
+      }
+      movies.sort(function(m1, m2) {
+        return m1.distance - m2.distance;
+      });
+      res.json(movies);
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
+
 // @ROUTE   /api/movies/:id
 // @DESC    Get movie by id
 router.get('/:id', async(req, res) => {
@@ -26,6 +52,7 @@ router.get('/:id', async(req, res) => {
 // @DESC    Get movie by code
 router.get('/code/:code', async(req, res) => {
   try {
+    
     const movie = await Movie.findOne({code: req.params.code});
     if (!movie) {
       res.status(404).json({msg: 'Movie not found'});
