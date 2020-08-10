@@ -1,0 +1,10 @@
+import 'bootstrap';
+import 'owl.carousel';
+import './js/jquery.mCustomScrollbar.min';
+import './js/jquery.mousewheel.min';
+import 'nouislider';
+import 'ionicons'; 
+import 'photoswipe';
+import 'wnumb';
+import './js/main'
+import './js/jquery.morelines.min'
