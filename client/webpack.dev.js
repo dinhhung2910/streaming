@@ -25,5 +25,13 @@ module.exports = merge(common, {
   },
   plugins: [new HtmlWebpackPlugin({
     template: './src/streaming.html'
-  })]
+  })],
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        secure: false
+      }
+    }
+  }
 });

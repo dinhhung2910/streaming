@@ -12,7 +12,7 @@ const roomSocket = require('./socket/room')(io);
 connectDB();
 
 // Init middleware
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.json({extended: false}));
 
 app.get('/', function(req, res) {
@@ -28,7 +28,7 @@ app.get('/index.html', function(req, res) {
 
 app.get('/streaming/**', function(req, res) {
   // fs.readFile()
-  res.sendFile(path.join(__dirname + '/streaming.html'))
+  res.sendFile(path.join(__dirname + '/client/dist/index.html'))
 })
 
 /**
