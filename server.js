@@ -74,7 +74,7 @@ app.get('/video/:filename', function(req, res) {
 })
 
 app.get('/subtitles/:filename', function(req, res) {
-  res.sendFile(path.join(__dirname, '/cdn/subtitles/' + req.params.filename));
+  res.sendFile(path.join(__dirname, '/cdn/public/subtitles/' + req.params.filename));
 });
 
 server.listen(3000, function () {
