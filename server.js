@@ -73,6 +73,10 @@ app.get('/video/:filename', function(req, res) {
   }
 })
 
+app.get('/subtitles/:filename', function(req, res) {
+  res.sendFile(path.join(__dirname, '/cdn/subtitles/' + filename));
+});
+
 server.listen(3000, function () {
   console.log('Listening on port 3000!')
 })
