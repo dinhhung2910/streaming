@@ -28,8 +28,13 @@ module.exports = merge(common, {
   })],
   devServer: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
+      '/api/movies/code/undefined': {
+        target: 'http://localhost:3000/api/movies/code/the-boys-s01e07-28616',
+        pathRewrite: {'^/api/movies/code/undefined' : ''},
+        secure: false
+      },
+      '/': {
+        target: 'http://localhost:3000/',
         secure: false
       }
     }

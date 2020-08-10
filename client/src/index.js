@@ -226,6 +226,8 @@ function loadMovieByCode(code) {
           videoPlayer.append(source);
 
           document.getElementById('video-container').append(videoPlayer);
+          const player = new Plyr('#videoPlayer');
+
           resolve({video: videoPlayer, id: movie._id});
 
         }).catch(err => {

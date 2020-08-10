@@ -35,8 +35,8 @@ app.get('/streaming/**', function(req, res) {
  * @url   GET /video/:file
  */
 app.get('/video/:filename', function(req, res) {
-  const path = 'assets/' + req.params.filename;
-  const stat = fs.statSync(path)
+  const p = path.join(__dirname, 'assets/' + req.params.filename);
+  const stat = fs.statSync(p)
   const fileSize = stat.size
   const range = req.headers.range
 
@@ -53,7 +53,7 @@ app.get('/video/:filename', function(req, res) {
     }
     
     const chunksize = (end-start)+1
-    const file = fs.createReadStream(path, {start, end})
+    const file = fs.createReadStream(p, {start, end})
     const head = {
       'Content-Range': `bytes ${start}-${end}/${fileSize}`,
       'Accept-Ranges': 'bytes',
