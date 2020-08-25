@@ -14,6 +14,14 @@ const movieSchema = new mongoose.Schema({
   onlineLink: {
     type: String,
   },
+  sources: [{
+    size: {
+      type: Number
+    },
+    link: {
+      type: String
+    }
+  }],
   isAvailable: {
     type: Boolean
   },

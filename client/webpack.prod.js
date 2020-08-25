@@ -16,7 +16,14 @@ module.exports = merge(common, {
   optimization: {
     minimizer: [
       new OptimizeCssAssetsWebpackPlugin(),
-      new TerserWebpackPlugin()
+      new TerserWebpackPlugin({
+        sourceMap: true,
+        terserOptions: {
+          compress: {
+            drop_console: true
+          }
+        }
+      })
     ]
   },
   plugins: [

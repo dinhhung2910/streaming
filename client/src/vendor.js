@@ -7,4 +7,4 @@ import 'ionicons';
 import 'photoswipe';
 import 'wnumb';
 import './js/main'
-import './js/jquery.morelines.min'
+import './js/jquery.morelines.min';

@@ -31,6 +31,7 @@
     "webpack-merge": "^5.1.1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "bootstrap-4-grid": "^3.4.0",
     "bootstrap-reboot": "^4.4.1",
     "favicons-webpack-plugin": "^4.2.0",

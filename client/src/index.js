@@ -209,10 +209,14 @@ function loadMovieByCode(code) {
           let videoPlayer = document.createElement('video');
           videoPlayer.setAttribute('controls', '');
           videoPlayer.id = 'videoPlayer';
-
-          let source = document.createElement('source');
-          source.setAttribute('src', movie.onlineLink);
-          source.setAttribute('type', 'video/mp4');
+          
+          movie.sources.forEach(s => {
+            let source = document.createElement('source');
+            source.setAttribute('src', s.link);
+            source.setAttribute('type', 'video/mp4');
+            source.setAttribute('size', s.size);
+            videoPlayer.append(source);
+          });
 
           movie.subtitles.forEach(subtitle => {
             let track = document.createElement('track');
@@ -222,8 +226,6 @@ function loadMovieByCode(code) {
             track.setAttribute('label', subtitle.language);
             videoPlayer.append(track);
           });
-
-          videoPlayer.append(source);
 
           document.getElementById('video-container').append(videoPlayer);
           const player = new Plyr('#videoPlayer');

@@ -1,10 +1,17 @@
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
+var https = require('https');
+var privateKey  = fs.readFileSync('/usr/local/share/ca-certificates/streaming.key', 'utf8');
+var certificate = fs.readFileSync('/usr/local/share/ca-certificates/streaming.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
 const app = express();
 const connectDB = require('./config/db');
 
-var server  = require('http').createServer(app);
+var server  = https.createServer(credentials, app);
+
 var io = require('socket.io').listen(server);
 const roomSocket = require('./socket/room')(io);
 
