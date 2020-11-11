@@ -3,13 +3,33 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const Movie = require('../../models/Movie');
 const config = require('config');
+
+const assestsBaseURL = config.get('assestsBaseURL');
+const serverBaseURL = config.get('serverBaseURL');
+
 const LevenshteinDistance = require('../../utils/LevensteinDistance');
 
 // @ROUTE   GET /api/movies
 // @DESC    Get all movies
 router.get('/', async(req, res) => {
   try {
-    const movies = await Movie.find({}).select(['-subtitles', '-onlineLink']);
+    let movies = await Movie
+      .find({})
+      .select(['-subtitles', '-onlineLink'])
+      .lean();
+          
+    movies = movies.map(item => {
+      item.images = item.images || {};
+
+      const x = Object.assign(item, {
+        images: {
+          poster: assestsBaseURL + item.images.poster
+        }
+      });
+      return x;
+    });
+
+    console.log(movies);
     res.json(movies);
   } catch (error) {
     console.error(error.message);
@@ -53,11 +73,26 @@ router.get('/:id', async(req, res) => {
 router.get('/code/:code', async(req, res) => {
   try {
     
-    const movie = await Movie.findOne({code: req.params.code});
+    const movie = await Movie.findOne({code: req.params.code}).lean();
     if (!movie) {
       res.status(404).json({msg: 'Movie not found'});
     } else {
-      res.json(movie);
+
+      const x = Object.assign(movie, {
+        images: {
+          poster: assestsBaseURL + movie.images.poster
+        },
+        subtitles: movie.subtitles.map(subtitle => {
+          subtitle.link = assestsBaseURL + subtitle.link;
+          return subtitle;
+        }),
+        sources: movie.sources.map(source => {
+          source.link = serverBaseURL + source.link;
+          return source;
+        })
+      });
+
+      res.json(x);
     }
   } catch (error) {
     console.error(error.message);
