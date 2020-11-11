@@ -1,16 +1,12 @@
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
-var https = require('https');
-var privateKey  = fs.readFileSync('/usr/local/share/ca-certificates/streaming.key', 'utf8');
-var certificate = fs.readFileSync('/usr/local/share/ca-certificates/streaming.crt', 'utf8');
-
-var credentials = {key: privateKey, cert: certificate};
+var http = require('http');
 
 const app = express();
 const connectDB = require('./config/db');
 
-var server  = https.createServer(credentials, app);
+var server  = http.createServer(app);
 
 var io = require('socket.io').listen(server);
 const roomSocket = require('./socket/room')(io);
@@ -23,14 +19,14 @@ app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.json({extended: false}));
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'))
+  res.sendFile(path.join(__dirname + '/index-text.html'))
 })
 
 // Define Routes
 app.use('/api/movies', require('./routes/api/movies'));
 
 app.get('/index.html', function(req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'))
+  res.sendFile(path.join(__dirname + '/index-text.html'))
 })
 
 app.get('/streaming/**', function(req, res) {
