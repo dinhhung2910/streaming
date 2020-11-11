@@ -8,6 +8,12 @@ const connectDB = require('./config/db');
 
 var server  = http.createServer(app);
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 var io = require('socket.io').listen(server);
 const roomSocket = require('./socket/room')(io);
 
@@ -15,7 +21,7 @@ const roomSocket = require('./socket/room')(io);
 connectDB();
 
 // Init middleware
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, 'client-old/dist')));
 app.use(express.json({extended: false}));
 
 app.get('/', function(req, res) {
@@ -31,7 +37,7 @@ app.get('/index.html', function(req, res) {
 
 app.get('/streaming/**', function(req, res) {
   // fs.readFile()
-  res.sendFile(path.join(__dirname + '/client/dist/index.html'))
+  res.sendFile(path.join(__dirname + '/client-old/dist/index.html'))
 })
 
 /**
@@ -80,8 +86,8 @@ app.get('/subtitles/:filename', function(req, res) {
   res.sendFile(path.join(__dirname, '/cdn/public/subtitles/' + req.params.filename));
 });
 
-server.listen(3000, function () {
-  console.log('Listening on port 3000!')
+server.listen(5001, function () {
+  console.log('Listening on port 5001!')
 })
 
 io.on('connection', function(socket){
