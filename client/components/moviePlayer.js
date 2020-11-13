@@ -1,6 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import {v4 as uuid} from 'uuid';
-import Plyr from 'plyr';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 
 /**
@@ -9,33 +7,35 @@ import PropTypes from 'prop-types';
  */
 function MoviePlayer(props) {
   const [movie, setMovie] = useState(props.movie);
-
-  const id = 'a__movieplayer';
+  const ref = useRef('');
 
   useEffect(() => {
-    setMovie(props.movie);
-    new Plyr(`#${id}`);
+    setMovie(null);
+    setTimeout(() => {
+      setMovie(props.movie);
+    }, 300);
   }, [props.movie]);
 
   return (
     <div id="video-container">
-      <video id={id} controls>
-        {movie.sources.map((source, index) =>
-          (<source
-            key={index}
-            src={source.link}
-            type="video/mp4"
-            size={source.size} />))}
-        {movie.subtitles.map((item, index) => (
-          <track
-            key ={index}
-            kind='subtitles'
-            srcLang={item.srclang}
-            src={item.link}
-            label={item.language}
-          />
-        ))}
-      </video>
+      {!movie ? null :
+        (<video id={movie.code} controls ref={ref}>
+          {movie.sources.map((source, index) =>
+            (<source
+              key={index}
+              src={source.link}
+              type="video/mp4"
+              size={source.size} />))}
+          {movie.subtitles.map((item, index) => (
+            <track
+              key ={index}
+              kind='subtitles'
+              srcLang={item.srclang}
+              src={item.link}
+              label={item.language}
+            />
+          ))}
+        </video>) }
     </div>
   );
 }

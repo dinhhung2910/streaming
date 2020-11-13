@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import {BASE_URL} from '../utils/constants';
 
 /**
  * @return {Component} Page header navigation bar
@@ -15,7 +16,7 @@ function Navbar() {
                 {/* header logo */}
                 <Link href="/">
                   <a className="header__logo">
-                    <img src="/img/logo.svg" alt="" />
+                    <img src={BASE_URL + '/img/logo.svg'} alt="" />
                   </a>
                 </Link>
                 {/* end header logo */}

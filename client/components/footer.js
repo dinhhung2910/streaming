@@ -1,4 +1,5 @@
 import React from 'react';
+import {BASE_URL} from '../utils/constants';
 
 /**
  * @return {Component} Footer
@@ -15,14 +16,14 @@ function Footer() {
               <li>
                 <a href="#">
                   <img
-                    src="/img/Download_on_the_App_Store_Badge.svg"
+                    src={BASE_URL+'/img/Download_on_the_App_Store_Badge.svg'}
                     alt=""
                   />
                 </a>
               </li>
               <li>
                 <a href="#">
-                  <img src="/img/google-play-badge.png" alt="" />
+                  <img src={BASE_URL+'img/google-play-badge.png'} alt="" />
                 </a>
               </li>
             </ul>

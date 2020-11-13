@@ -1,4 +1,5 @@
 import React from 'react';
+import {BASE_URL} from '../utils/constants';
 
 /**
  * @return {Component} partner
@@ -32,7 +33,7 @@ function Partners() {
           <div className="col-6 col-sm-4 col-md-3 col-lg-2">
             <a href="#" className="partner">
               <img
-                src="/img/partners/themeforest-light-background.png"
+                src={BASE_URL+'/img/partners/themeforest-light-background.png'}
                 alt=""
                 className="partner__img"
               />
@@ -44,7 +45,7 @@ function Partners() {
           <div className="col-6 col-sm-4 col-md-3 col-lg-2">
             <a href="#" className="partner">
               <img
-                src="/img/partners/audiojungle-light-background.png"
+                src={BASE_URL+'/img/partners/audiojungle-light-background.png'}
                 alt=""
                 className="partner__img"
               />
@@ -56,7 +57,7 @@ function Partners() {
           <div className="col-6 col-sm-4 col-md-3 col-lg-2">
             <a href="#" className="partner">
               <img
-                src="/img/partners/codecanyon-light-background.png"
+                src={BASE_URL+'/img/partners/codecanyon-light-background.png'}
                 alt=""
                 className="partner__img"
               />
@@ -68,7 +69,7 @@ function Partners() {
           <div className="col-6 col-sm-4 col-md-3 col-lg-2">
             <a href="#" className="partner">
               <img
-                src="/img/partners/photodune-light-background.png"
+                src={BASE_URL+'/img/partners/photodune-light-background.png'}
                 alt=""
                 className="partner__img"
               />
@@ -80,7 +81,7 @@ function Partners() {
           <div className="col-6 col-sm-4 col-md-3 col-lg-2">
             <a href="#" className="partner">
               <img
-                src="/img/partners/activeden-light-background.png"
+                src={BASE_URL+'/img/partners/activeden-light-background.png'}
                 alt=""
                 className="partner__img"
               />
@@ -92,7 +93,7 @@ function Partners() {
           <div className="col-6 col-sm-4 col-md-3 col-lg-2">
             <a href="#" className="partner">
               <img
-                src="/img/partners/3docean-light-background.png"
+                src={BASE_URL+'/img/partners/3docean-light-background.png'}
                 alt=""
                 className="partner__img"
               />

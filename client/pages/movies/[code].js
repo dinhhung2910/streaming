@@ -1,12 +1,10 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Head from 'next/head';
 
 import ExpectedPremiere from '../../components/expectedPremiere';
-import Footer from '../../components/footer';
-import Navbar from '../../components/navbar';
-import Partners from '../../components/partners';
 import {BASE_API_URL} from '../../utils/constants';
 import MoviePlayer from '../../components/moviePlayer';
+import MoviePageLayout from '../../components/movie-page/moviePageLayout';
 
 /**
  * @param {Object} context nextjs context
@@ -51,12 +49,10 @@ export default function c(props) {
   const {movie, allMovies} = props;
 
   return (
-    <Fragment>
+    <MoviePageLayout>
       <Head>
         <title>{movie.name} | HFilms </title>
       </Head>
-      <Navbar />
-      {/* home */}
       <section className="home">
 
         <div className="container">
@@ -71,11 +67,7 @@ export default function c(props) {
           </div>
         </div>
       </section>
-      {/* end home */}
-
       <ExpectedPremiere allMovies={allMovies}/>
-      <Partners />
-      <Footer />
-    </Fragment>
+    </MoviePageLayout>
   );
 }
