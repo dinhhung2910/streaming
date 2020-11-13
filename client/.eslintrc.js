@@ -33,5 +33,6 @@ module.exports = {
     // we want to avoid useless spaces
     'no-multi-spaces': ['error'],
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 0,
   },
 };
