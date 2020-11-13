@@ -10,5 +10,6 @@ module.exports = {
 
     return config;
   },
-  basePath: '/streaming',
+  basePath: process.env.NODE_ENV == 'production' ? '/streaming' : '',
+  assetPrefix: process.env.NODE_ENV == 'production' ? '/streaming' : '',
 };
