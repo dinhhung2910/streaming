@@ -23,7 +23,7 @@ function Footer() {
               </li>
               <li>
                 <a href="#">
-                  <img src={BASE_URL+'img/google-play-badge.png'} alt="" />
+                  <img src={BASE_URL+'/img/google-play-badge.png'} alt="" />
                 </a>
               </li>
             </ul>

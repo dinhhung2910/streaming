@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
+import MovieSocket from './movieSocket';
 
 /**
  * @param {*} props props
@@ -18,6 +19,7 @@ function MoviePlayer(props) {
 
   return (
     <div id="video-container">
+      <MovieSocket movieRef={ref} />
       {!movie ? null :
         (<video id={movie.code} controls ref={ref}>
           {movie.sources.map((source, index) =>
@@ -42,7 +44,7 @@ function MoviePlayer(props) {
 
 MoviePlayer.propTypes = {
   'props': PropTypes.object,
-  'props.movie': PropTypes.object.isRequired,
+  'props.movie': PropTypes.object,
 
 };
 export default MoviePlayer;

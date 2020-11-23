@@ -15,6 +15,7 @@ app.use(function(req, res, next) {
 });
 
 var io = require('socket.io').listen(server);
+io.origins('*:*')
 const roomSocket = require('./socket/room')(io);
 
 // Connect database
