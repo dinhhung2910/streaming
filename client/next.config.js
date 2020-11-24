@@ -12,4 +12,13 @@ module.exports = {
   },
   basePath: process.env.NODE_ENV == 'production' ? '/streaming' : '',
   assetPrefix: process.env.NODE_ENV == 'production' ? '/streaming' : '',
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/movies',
+        permanent: true,
+      },
+    ];
+  },
 };
