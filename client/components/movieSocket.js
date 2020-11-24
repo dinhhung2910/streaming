@@ -68,7 +68,7 @@ function MovieSocket(props) {
   /* Init socket when mount element
    */
   useEffect(() => {
-    setSocket(io('http://localhost:5000/room', {
+    setSocket(io('http://localhost:5001/room', {
       // path: '/streaming/server/socket.io',
     }));
   }, []);

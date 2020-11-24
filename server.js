@@ -14,8 +14,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-var io = require('socket.io').listen(server);
-io.origins('*:*')
+var io = require('socket.io')(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+
 const roomSocket = require('./socket/room')(io);
 
 // Connect database
