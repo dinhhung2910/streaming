@@ -1,3 +1,6 @@
+const basePath = process.env.NODE_ENV == 'production' ? '/streaming' : '';
+const assetPrefix = process.env.NODE_ENV == 'production' ? '/streaming' : '';
+
 module.exports = {
   webpack(config) {
     config.module.rules.push({
@@ -10,13 +13,13 @@ module.exports = {
 
     return config;
   },
-  basePath: process.env.NODE_ENV == 'production' ? '/streaming' : '',
-  assetPrefix: process.env.NODE_ENV == 'production' ? '/streaming' : '',
+  basePath: basePath,
+  assetPrefix: assetPrefix,
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/movies',
+        source: basePath + '/',
+        destination: basePath + '/movies',
         permanent: true,
       },
     ];
