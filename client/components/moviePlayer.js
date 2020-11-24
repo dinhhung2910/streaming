@@ -8,20 +8,35 @@ import MovieSocket from './movieSocket';
  */
 function MoviePlayer(props) {
   const [movie, setMovie] = useState(props.movie);
-  const ref = useRef('');
+  const [playerId, setPlayerId] = useState(props.movie.code);
+  const [playTimestamp, setPlayTimestamp] = useState(NaN);
+  const [pauseTimestamp, setPauseTimestamp] = useState(NaN);
 
   useEffect(() => {
     setMovie(null);
     setTimeout(() => {
       setMovie(props.movie);
+      setPlayerId(props.movie.code);
     }, 300);
   }, [props.movie]);
 
   return (
     <div id="video-container">
-      <MovieSocket movieRef={ref} />
+      <MovieSocket
+        playTimestamp={playTimestamp}
+        pauseTimestamp={pauseTimestamp}
+        playerId={playerId}
+        movieId={movie ? movie.code : ''}/>
       {!movie ? null :
-        (<video id={movie.code} controls ref={ref}>
+        (<video
+          id={movie.code}
+          onPlay={(e) => {
+            setPlayTimestamp(e.target.currentTime);
+          }}
+          onPause={(e) => {
+            setPauseTimestamp(e.target.currentTime);
+          }}
+          controls>
           {movie.sources.map((source, index) =>
             (<source
               key={index}

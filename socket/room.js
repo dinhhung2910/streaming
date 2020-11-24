@@ -14,21 +14,17 @@ function roomSocket(io) {
     socket.on('create', function(room) {
       socket.join(room);
     });
-
+    socket.on('quit', function(room) {
+      socket.leave(room);
+    })
     socket.on('play', (e) => {
       if (actionRecord.addRecord(1, 'play', e)) {
-        let rooms = Object.keys(socket.rooms).filter(item => item!=socket.id);
-        rooms.forEach(room => {
-          socket.broadcast.to(room).emit('play', e);
-        });
+        socket.to(e.room).emit('play', e.timestamp);
       }
     })
     socket.on('pause', (e) => {
       if (actionRecord.addRecord(1, 'pause', e)) {
-        let rooms = Object.keys(socket.rooms).filter(item => item!=socket.id);
-        rooms.forEach(room => {
-          socket.broadcast.to(room).emit('pause', e);
-        });
+        socket.to(e.room).emit('pause', e.timestamp);
       }
     })
     socket.on('seeked', (e) => {
