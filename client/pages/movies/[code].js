@@ -59,6 +59,7 @@ export default function c(props) {
         }></meta>
         <meta property="og:image" content={movie.images.poster}></meta>
         <meta property="og:description" content={movie.description}></meta>
+        <meta property="og:type" content="video.movie"></meta>
       </Head>
       <section className="home">
 
