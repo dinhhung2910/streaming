@@ -16,3 +16,16 @@
   font-family: roboto, sans-serif;
   font-size: 16pt;
 }
+
+.video-container {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.video-container video {
+  width: 100%;
+}
+
+.home__title {
+  margin-bottom: 16px;
+}

@@ -21,7 +21,7 @@ function MoviePlayer(props) {
   }, [props.movie]);
 
   return (
-    <div id="video-container">
+    <div id="video-container" className="video-container">
       <MovieSocket
         playTimestamp={playTimestamp}
         pauseTimestamp={pauseTimestamp}
