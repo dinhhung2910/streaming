@@ -8,6 +8,13 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  alternativeName: {
+    type: String,
+  },
+  description: {
+    type: String,
+    default: ''
+  },
   year: {
     type: Number
   },

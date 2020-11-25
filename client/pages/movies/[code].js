@@ -52,6 +52,13 @@ export default function c(props) {
     <MoviePageLayout>
       <Head>
         <title>{movie.name} | HFilms </title>
+        <meta property="og:title" content={
+          `${movie.name}` +
+          (movie.alternativeName ? ` (${movie.alternativeName})` : '') +
+          ` | ${movie.year} | HFilms`
+        }></meta>
+        <meta property="og:image" content={movie.images.poster}></meta>
+        <meta property="og:description" content={movie.description}></meta>
       </Head>
       <section className="home">
 
