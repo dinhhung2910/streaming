@@ -9,7 +9,6 @@ import {BASE_API_URL} from '../utils/constants';
 function MovieSocket(props) {
   const {
     movieId,
-    playerId,
     playTimestamp,
     pauseTimestamp,
   } = props;
@@ -17,12 +16,78 @@ function MovieSocket(props) {
   const [socket, setSocket] = useState({});
   const [roomId, setRoomId] = useState('');
   const [isSocketAction, setIsSocketAction] = useState(false);
+  const [player, setPlayer] = useState({
+    id: '',
+  });
 
   const [timeStamp, setTimeStamp] = useState({
     play: new Set(),
     pause: new Set(),
     seek: new Set(),
   });
+
+  // watch when playerId is changed
+  useEffect(() => {
+    setPlayer({
+      ...player,
+      id: props.playerId,
+    });
+    setTimeStamp({
+      play: new Set(),
+      pause: new Set(),
+      seek: new Set(),
+    });
+  }, [props.playerId]);
+
+  useEffect(() => {
+    try {
+      socket.off('play');
+      socket.off('pause');
+
+      socket.on('play', (e) => {
+        try {
+          if (!timeStamp.play.has(e)) {
+          // not seek again
+            timeStamp.seek.add(e);
+            const moviePlayer = document.getElementById(props.playerId);
+            if (Math.abs(moviePlayer.currentTime - e) > 0.1) {
+              moviePlayer.currentTime = e;
+            }
+
+            moviePlayer.play();
+            setIsSocketAction(true);
+            setTimeout(() => {
+              setIsSocketAction(false);
+            }, 200);
+          }
+        } catch (e) {
+          console.error('Can\'t get video player with Id', player.id);
+        }
+      });
+
+      socket.on('pause', (e) => {
+        if (!timeStamp.pause.has(e)) {
+          try {
+            const moviePlayer = document.getElementById(props.playerId);
+            moviePlayer.pause();
+            if (Math.abs(moviePlayer.currentTime - e) > 0.1) {
+              moviePlayer.currentTime = e;
+            }
+
+            setIsSocketAction(true);
+            setTimeout(() => {
+              setIsSocketAction(false);
+            }, 200);
+          } catch (e) {
+            console.error('Can\'t get video player with Id', player.id);
+          }
+        }
+      });
+    } catch (e) {
+      console.error(e);
+      console.warn('Socket hasn\'t been initialized yet');
+    }
+  }, [socket.id, props.playerId]);
 
   // Watch when movie source is changed
   useEffect(() => {
@@ -38,15 +103,6 @@ function MovieSocket(props) {
       // setFirstPlay(true);
     });
   }, [movieId]);
-
-  // Watch when movie source is change
-  useEffect(() => {
-    setTimeStamp({
-      play: new Set(),
-      pause: new Set(),
-      seek: new Set(),
-    });
-  }, [playerId]);
 
   // watch when movie is play
   useEffect(() => {
@@ -73,39 +129,6 @@ function MovieSocket(props) {
     }
   }, [pauseTimestamp]);
 
-  // const onPlayEvent = (e) => {
-  //   if (firstPlay) {
-  //     socket.emit('whattimeisit');
-  //     setFirstPlay(false);
-  //     return;
-  //   }
-  //   if (timeStamp.play.has(e) || isSocketAction) return;
-  //   if (e.isTrusted) {
-  //     socket.emit('play', moviePlayer.currentTime);
-  //     timeStamp.play.add(e);
-  //   }
-  // };
-
-  // const onPauseEvent = (e) => {
-  //   if (timeStamp.pause.has(e) || isSocketAction) return;
-  //   if (e.isTrusted) {
-  //     socket.emit('pause', moviePlayer.currentTime);
-  //     timeStamp.pause.add(e);
-  //   }
-  // };
-
-  // const onSeekEvent = (e) => {
-  //   if (timeStamp.seek.has(e) || isSocketAction) return;
-  //   if (e.isTrusted) {
-  //     socket.emit('seeked', moviePlayer.currentTime);
-  //     timeStamp.seek.add(e);
-  //   }
-  // };
-
-  // /* Watch video player element to detect when video's source is changed
-  //  * Then remove listeners on old elm and add listeners to new elm
-  //  */
-
 
   /* Watch socket to check when it is disconnected
    */
@@ -125,34 +148,42 @@ function MovieSocket(props) {
     );
     setSocket(roomSocket);
     roomSocket.on('play', (e) => {
-      if (!timeStamp.play.has(e)) {
-        // not seek again
-        timeStamp.seek.add(e);
-        const moviePlayer = document.getElementById(playerId);
-        if (Math.abs(moviePlayer.currentTime - e) > 0.1) {
-          moviePlayer.currentTime = e;
-        }
+      try {
+        if (!timeStamp.play.has(e)) {
+          // not seek again
+          timeStamp.seek.add(e);
+          const moviePlayer = document.getElementById(player.id);
+          if (Math.abs(moviePlayer.currentTime - e) > 0.1) {
+            moviePlayer.currentTime = e;
+          }
 
-        moviePlayer.play();
-        setIsSocketAction(true);
-        setTimeout(() => {
-          setIsSocketAction(false);
-        }, 200);
+          moviePlayer.play();
+          setIsSocketAction(true);
+          setTimeout(() => {
+            setIsSocketAction(false);
+          }, 200);
+        }
+      } catch (e) {
+        console.error('Can\'t get video player with Id', player.id);
       }
     });
 
     roomSocket.on('pause', (e) => {
       if (!timeStamp.pause.has(e)) {
-        const moviePlayer = document.getElementById(playerId);
-        moviePlayer.pause();
-        if (Math.abs(moviePlayer.currentTime - e) > 0.1) {
-          moviePlayer.currentTime = e;
-        }
+        try {
+          const moviePlayer = document.getElementById(player.id);
+          moviePlayer.pause();
+          if (Math.abs(moviePlayer.currentTime - e) > 0.1) {
+            moviePlayer.currentTime = e;
+          }
 
-        setIsSocketAction(true);
-        setTimeout(() => {
-          setIsSocketAction(false);
-        }, 200);
+          setIsSocketAction(true);
+          setTimeout(() => {
+            setIsSocketAction(false);
+          }, 200);
+        } catch (e) {
+          console.error('Can\'t get video player with Id', player.id);
+        }
       }
     });
 
