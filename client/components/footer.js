@@ -78,22 +78,22 @@ function Footer() {
             <ul className="footer__social">
               <li className="facebook">
                 <a href="#">
-                  <i className="icon ion-logo-facebook"></i>
+                  <i className="fab fa-facebook-square"></i>
                 </a>
               </li>
               <li className="instagram">
                 <a href="#">
-                  <i className="icon ion-logo-instagram"></i>
+                  <i className="fab fa-instagram"></i>
                 </a>
               </li>
               <li className="twitter">
                 <a href="#">
-                  <i className="icon ion-logo-twitter"></i>
+                  <i className="fab fa-twitter"></i>
                 </a>
               </li>
               <li className="vk">
                 <a href="#">
-                  <i className="icon ion-logo-vk"></i>
+                  <i className="fab fa-vk"></i>
                 </a>
               </li>
             </ul>

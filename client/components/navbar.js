@@ -148,11 +148,11 @@ function Navbar() {
                 <div className="header__auth">
                   <button className="header__search-btn" type="button">
                     {/* <i class="icon ion-ios-search"></i> */}
-                    <ion-icon name="search-outline"></ion-icon>
+                    <i className="fal fa-search"></i>
                   </button>
 
                   <a href="/signin.html" className="header__sign-in">
-                    {/* <i class="icon ion-ios-log-in"></i> */}
+                    <i className="fal fa-sign-in"></i>
                     {/* <ion-icon name="log-in"></ion-icon> */}
                     <span>sign in</span>
                   </a>

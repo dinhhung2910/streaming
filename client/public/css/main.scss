@@ -7,6 +7,8 @@
 @import "~plyr/dist/plyr.css";
 @import "~photoswipe/dist/photoswipe.css";
 @import "./theme.scss";
+@import "../font-awesome/css/all.css";
+
 
 #all-movie .card {
   background-color: transparent;
@@ -24,8 +26,28 @@
 
 .video-container video {
   width: 100%;
+  background: black;
+  max-height: 500px;
+  border-radius: 4px;
+  transition: 0.2s;
+
+  &:active, &:focus {
+    border: none;
+    outline: none;
+    box-shadow: 0px 0px 0px 5px rgba(0,0, 0,0.4);
+    transition: 0.2s;
+  }
 }
 
 .home__title {
   margin-bottom: 16px;
+}
+
+.card__cover img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.card {
+  border: none;
 }
