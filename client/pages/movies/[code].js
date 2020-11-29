@@ -38,7 +38,10 @@ export async function getStaticPaths() {
     params: {code: movie.code},
   }));
 
-  return {paths, fallback: false};
+  return {
+    paths,
+    fallback: true,
+  };
 }
 
 /**
