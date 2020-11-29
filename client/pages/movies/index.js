@@ -9,6 +9,7 @@ import MoviePageLayout from '../../components/movie-page/moviePageLayout';
  * @param {Object} context nextjs context
  */
 export async function getStaticProps(context) {
+  console.log(BASE_API_URL);
   const res1 = await fetch(BASE_API_URL + '/api/movies');
   const allMovies = await res1.json();
 

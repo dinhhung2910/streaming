@@ -49,7 +49,13 @@ export async function getStaticPaths() {
  * @return {Component} Movie main page
  */
 export default function c(props) {
-  const {movie, allMovies} = props;
+  // const {movie, allMovies} = props;
+  const movie = props.movie || {
+    images: {},
+    sources: [],
+    subtitles: [],
+  };
+  const allMovies = props.allMovies || [];
 
   return (
     <MoviePageLayout>
