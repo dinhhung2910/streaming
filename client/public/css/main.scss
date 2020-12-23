@@ -6,6 +6,7 @@
 @import "~nouislider/distribute/nouislider.css";
 @import "~plyr/dist/plyr.css";
 @import "~photoswipe/dist/photoswipe.css";
+@import "~plyr-react/dist/plyr.css";
 @import "./theme.scss";
 @import "../font-awesome/css/all.css";
 
@@ -21,7 +22,8 @@
 .video-container {
   min-width: 100%;
   max-width: 100%;
-
+  max-height: 500px;
+  
   /*==============================
 	Plyr customization
   ==============================*/
@@ -106,13 +108,22 @@
   }
   .plyr--video .plyr__control svg {
     filter: none;
+  
+  // Outer container
+
+  .outer-1 {
+    height: 100%;
+
+    .outer-2 {
+      height: 100%;
+    }
   }
 }
 
 .video-container video {
   width: 100%;
   background: black;
-  max-height: 500px;
+  // max-height: 500px;
   border-radius: 4px;
   transition: 0.2s;
 

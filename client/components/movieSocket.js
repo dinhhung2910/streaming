@@ -108,11 +108,15 @@ function MovieSocket(props) {
   useEffect(() => {
     if (!isNaN(playTimestamp)) {
       if (timeStamp.play.has(playTimestamp) || isSocketAction) return;
+      try {
+        socket.emit('play', {
+          timestamp: playTimestamp,
+          room: roomId,
+        });
+      } catch (e) {
+        console.warn(e);
+      }
 
-      socket.emit('play', {
-        timestamp: playTimestamp,
-        room: roomId,
-      });
       timeStamp.play.add(playTimestamp);
     }
   }, [playTimestamp]);
@@ -122,10 +126,14 @@ function MovieSocket(props) {
     if (!isNaN(pauseTimestamp)) {
       if (timeStamp.pause.has(pauseTimestamp) || isSocketAction) return;
 
-      socket.emit('pause', {
-        timestamp: pauseTimestamp,
-        room: roomId,
-      });
+      try {
+        socket.emit('pause', {
+          timestamp: pauseTimestamp,
+          room: roomId,
+        });
+      } catch (e) {
+        console.warn(e);
+      }
     }
   }, [pauseTimestamp]);
 
