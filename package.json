@@ -16,7 +16,7 @@
     "bootstrap-reboot": "^4.5.4",
     "config": "^3.3.3",
     "express": "^4.15.3",
-    "express-validator": "^6.4.0",
+    "express-validator": "^6.9.0",
     "mongoose": "^5.11.8",
     "nodemon": "^1.11.0",
     "socket.io": "^3.0.3"
