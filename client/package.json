@@ -23,7 +23,7 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-resize-detector": "^5.2.0",
-    "sass": "^1.32.2",
+    "sass": "^1.32.4",
     "socket.io-client": "^3.0.5",
     "uuid": "^8.3.2",
     "wnumb": "^1.2.0"
