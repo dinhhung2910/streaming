@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb://hungdm:incorrect@kaitovps:27017/movie-stream?readPreference=primary",
-  "defaultFileName": "/video/lancuoi.mp4"
+  "defaultFileName": "/video/lancuoi.mp4",
+  "assestsBaseURL": "http://kaito-bk.com/streaming/assets",
+  "serverBaseURL":  "http://kaito-bk.com/streaming/server"
 }

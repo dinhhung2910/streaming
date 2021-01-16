@@ -19,6 +19,13 @@
   font-size: 16pt;
 }
 
+@media screen and (min-width: 768px) {
+  .plyr__caption {
+    font-size: 18pt;
+    font-family: roboto, sans-serif;
+  }
+}
+
 .video-container {
   min-width: 100%;
   max-width: 100%;
