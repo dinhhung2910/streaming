@@ -1,8 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import MovieSocket from './movieSocket';
 import Plyr from 'plyr-react';
 import useInterval from '../lib/useInterval';
+import {withResizeDetector} from 'react-resize-detector';
 
 /**
  * @param {*} props props
@@ -33,6 +34,14 @@ function MoviePlayer(props) {
         setPauseTimestamp(e.target.currentTime);
       };
     }
+
+    const videoContainer = document.getElementById('video-container');
+
+    if (document.fullscreenElement && videoContainer) {
+      videoContainer.classList.add('fullscreen');
+    } else {
+      videoContainer.classList.remove('fullscreen');
+    }
   }, 2000);
 
   return (
@@ -50,37 +59,19 @@ function MoviePlayer(props) {
             </div>
           </div>
         )
-        // (<video
-        //   id={movie.code}
-        //   onPlay={(e) => {
-        //     setPlayTimestamp(e.target.currentTime);
-        //   }}
-        //   onPause={(e) => {
-        //     setPauseTimestamp(e.target.currentTime);
-        //   }}
-        //   controls>
-        //   {movie.sources.map((source, index) =>
-        //     (<source
-        //       key={index}
-        //       src={source.link}
-        //       type="video/mp4"
-        //       size={source.size} />))}
-        //   {movie.subtitles.map((item, index) => (
-        //     <track
-        //       key ={index}
-        //       kind='subtitles'
-        //       srcLang={item.srclang}
-        //       src={item.link}
-        //       label={item.language}
-        //     />
-        //   ))}
-        // </video>)
       }
     </div>
   );
 }
 
-const PlyrPlayer = ({movie}) => {
+const PlyrPlayer = ({movie, width}) => {
+  useEffect(() => {
+    const videoPlayer = document.getElementById('video-container');
+    if (videoPlayer) {
+      videoPlayer.setAttribute('width', width);
+    }
+  }, [width]);
+
   return (
     <Plyr
       source={{
@@ -104,8 +95,9 @@ const PlyrPlayer = ({movie}) => {
 };
 
 const PlyrPlayerMemo = React.memo(PlyrPlayer, (props, nextPtops) => {
-  return props.movie == nextPtops.movie;
+  return (props.movie == nextPtops.movie);
 });
+
 
 MoviePlayer.propTypes = {
   'props': PropTypes.object,

@@ -24,6 +24,12 @@
     font-size: 18pt;
     font-family: roboto, sans-serif;
   }
+
+  .video-container.fullscreen {
+    .plyr__caption {
+      font-size: 24pt;
+    }
+  }
 }
 
 .video-container {
