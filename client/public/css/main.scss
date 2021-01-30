@@ -20,12 +20,14 @@
 }
 
 @media screen and (min-width: 768px) {
-  .plyr__caption {
-    font-size: 18pt;
-    font-family: roboto, sans-serif;
+  .low-dpi {
+    .plyr__caption {
+      font-size: 18pt;
+      font-family: roboto, sans-serif;
+    }
   }
-
-  .video-container.fullscreen {
+  
+  .video-container.fullscreen.low-dpi {
     .plyr__caption {
       font-size: 24pt;
     }

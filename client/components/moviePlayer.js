@@ -4,6 +4,7 @@ import MovieSocket from './movieSocket';
 import Plyr from 'plyr-react';
 import useInterval from '../lib/useInterval';
 import {withResizeDetector} from 'react-resize-detector';
+import {HIGH_DPI_MEDIA_QUERY} from '../utils/constants';
 
 /**
  * @param {*} props props
@@ -41,6 +42,14 @@ function MoviePlayer(props) {
       videoContainer.classList.add('fullscreen');
     } else {
       videoContainer.classList.remove('fullscreen');
+    }
+
+    if (window.matchMedia(HIGH_DPI_MEDIA_QUERY)) {
+      videoContainer.classList.add('high-dpi');
+      videoContainer.classList.remove('low-dpi');
+    } else {
+      videoContainer.classList.remove('high-dpi');
+      videoContainer.classList.add('low-dpi');
     }
   }, 2000);
 
