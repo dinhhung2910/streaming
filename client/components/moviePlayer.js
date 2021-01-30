@@ -44,12 +44,12 @@ function MoviePlayer(props) {
       videoContainer.classList.remove('fullscreen');
     }
 
-    if (window.matchMedia(HIGH_DPI_MEDIA_QUERY)) {
-      videoContainer.classList.add('high-dpi');
-      videoContainer.classList.remove('low-dpi');
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = ua.indexOf('android') > -1;
+    if (isAndroid) {
+      videoContainer.classList.add('android');
     } else {
-      videoContainer.classList.remove('high-dpi');
-      videoContainer.classList.add('low-dpi');
+      videoContainer.classList.remove('android');
     }
   }, 2000);
 
