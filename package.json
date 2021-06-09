@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "bootstrap-4-grid": "^3.4.0",
-    "bootstrap-reboot": "^4.5.4",
+    "bootstrap-reboot": "^4.5.6",
     "config": "^3.3.6",
     "express": "^4.15.3",
     "express-validator": "^6.10.0",
