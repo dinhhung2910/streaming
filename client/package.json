@@ -12,7 +12,7 @@
     "@reduxjs/toolkit": "^1.6.0",
     "@rocketseat/react-plyr": "^1.0.1",
     "@svgr/webpack": "^5.5.0",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.0.1",
     "ionicons": "^5.5.2",
     "next": "latest",
     "nouislider": "^15.1.1",
