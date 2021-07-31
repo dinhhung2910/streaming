@@ -1,10 +1,19 @@
-import React from 'react';
+/* eslint-disable max-len */
+import React, {useEffect} from 'react';
 import Head from 'next/head';
 
-import ExpectedPremiere from '../../components/expectedPremiere';
 import {BASE_API_URL} from '../../utils/constants';
 import MoviePlayer from '../../components/moviePlayer';
 import MoviePageLayout from '../../components/movie-page/moviePageLayout';
+
+
+import Banner from '../../components/Banner/Banner';
+import Row from '../../components/Row/Row';
+// import Credits from '../../components/Credits/Credits';
+import {motion} from 'framer-motion';
+import {defaultPageFadeInVariants} from '../../utils/motionUtils';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectShowMoviePlayer, togglePlayer} from '../../lib/slices/moviePlayerSlice';
 
 /**
  * @param {Object} context nextjs context
@@ -50,12 +59,22 @@ export async function getStaticPaths() {
  */
 export default function c(props) {
   // const {movie, allMovies} = props;
+  const dispatch = useDispatch();
+  const showMoviePlayer = useSelector(selectShowMoviePlayer);
+
+  useEffect(() => {
+    dispatch(togglePlayer(false));
+
+    return () => dispatch(togglePlayer(false));
+  }, []);
+
   const movie = props.movie || {
     images: {},
     sources: [],
     subtitles: [],
   };
   const allMovies = props.allMovies || [];
+
 
   return (
     <MoviePageLayout>
@@ -70,21 +89,21 @@ export default function c(props) {
         <meta property="og:description" content={movie.description}></meta>
         <meta property="og:type" content="video.movie"></meta>
       </Head>
-      <section className="home">
+      <motion.div
+        className="Movies"
+        variants={defaultPageFadeInVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <Banner type='movies' movie={movie} style={{display: showMoviePlayer ? 'none' : ''}}/>
+        <MoviePlayer movie={movie}/>
 
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <h1 className="home__title">
-                WATCHING <b>{movie.name}</b>
-              </h1>
-            </div>
-
-            <MoviePlayer movie={movie}/>
-          </div>
-        </div>
-      </section>
-      <ExpectedPremiere allMovies={allMovies}/>
+        <Row title="Expected premiere" isLarge={true}
+          rowData={{data: allMovies, loading: false}}
+        />
+        {/* <Credits /> */}
+      </motion.div>
     </MoviePageLayout>
   );
 }

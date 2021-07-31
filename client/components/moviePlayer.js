@@ -3,26 +3,39 @@ import PropTypes from 'prop-types';
 import MovieSocket from './movieSocket';
 import Plyr from 'plyr-react';
 import useInterval from '../lib/useInterval';
-import {withResizeDetector} from 'react-resize-detector';
-import {HIGH_DPI_MEDIA_QUERY} from '../utils/constants';
+import {selectShowMoviePlayer} from '../lib/slices/moviePlayerSlice';
+import {useSelector} from 'react-redux';
 
 /**
  * @param {*} props props
  * @return {Component} component
  */
-function MoviePlayer(props) {
-  const [movie, setMovie] = useState(props.movie);
-  const [playerId, setPlayerId] = useState(props.movie.code);
+function MoviePlayer({movie: initMovie, ...props}) {
+  const [movie, setMovie] = useState(initMovie);
+  const [playerId, setPlayerId] = useState(initMovie.code);
   const [playTimestamp, setPlayTimestamp] = useState(NaN);
   const [pauseTimestamp, setPauseTimestamp] = useState(NaN);
+  const showMoviePlayer = useSelector(selectShowMoviePlayer);
+  const [firstPlay, setFirstPlay] = useState(true);
 
   useEffect(() => {
     setMovie(null);
     setTimeout(() => {
-      setMovie(props.movie);
-      setPlayerId(props.movie.code);
+      setMovie(initMovie);
+      setPlayerId(initMovie.code);
     }, 300);
-  }, [props.movie]);
+  }, [initMovie]);
+
+  // autoplay 500ms after show
+  useEffect(() => {
+    if (showMoviePlayer && firstPlay) {
+      setFirstPlay(false);
+      setTimeout(() => {
+        const videoPlayer = document.querySelector('.video-container video');
+        videoPlayer.play();
+      }, 0);
+    }
+  }, [showMoviePlayer]);
 
   useInterval(() => {
     const videoPlayer = document.querySelector('.video-container video');
@@ -54,7 +67,8 @@ function MoviePlayer(props) {
   }, 2000);
 
   return (
-    <div id="video-container" className="video-container">
+    <div id="video-container" className="video-container" {...props}
+      style={{display: !showMoviePlayer ? 'none' : ''}}>
       <MovieSocket
         playTimestamp={playTimestamp}
         pauseTimestamp={pauseTimestamp}

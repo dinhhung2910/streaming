@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
-import Footer from '../footer';
-import Navbar from '../navbar';
-import Partners from '../partners';
+import Navbar from '../Navbar/navbar';
+import DetailModal from '../../components/DetailModal/DetailModal';
+import {AnimatePresence} from 'framer-motion';
 
 /**
  * @param {*} props props
@@ -11,9 +11,10 @@ export default function MoviePageLayout(props) {
   return (
     <Fragment>
       <Navbar />
-      {props.children}
-      <Partners />
-      <Footer />
+      <DetailModal />
+      <AnimatePresence exitBeforeEnter>
+        {props.children}
+      </AnimatePresence>
     </Fragment>
   );
 }

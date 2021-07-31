@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {io} from 'socket.io-client';
+import {togglePlayer} from '../lib/slices/moviePlayerSlice';
 import {BASE_API_URL} from '../utils/constants';
 /**
  *
@@ -13,6 +15,7 @@ function MovieSocket(props) {
     pauseTimestamp,
   } = props;
 
+  const dispatch = useDispatch();
   const [socket, setSocket] = useState({});
   const [roomId, setRoomId] = useState('');
   const [isSocketAction, setIsSocketAction] = useState(false);
@@ -47,12 +50,20 @@ function MovieSocket(props) {
       socket.on('play', (e) => {
         try {
           if (!timeStamp.play.has(e)) {
-          // not seek again
+            try {
+              dispatch(togglePlayer(true));
+              console.log('toggled');
+            } catch (e) {
+              console.error(e);
+            }
+
+            // not seek again
             timeStamp.seek.add(e);
             const moviePlayer = document.getElementById(props.playerId);
             if (Math.abs(moviePlayer.currentTime - e) > 0.1) {
               moviePlayer.currentTime = e;
             }
+
 
             moviePlayer.play();
             setIsSocketAction(true);
@@ -158,6 +169,12 @@ function MovieSocket(props) {
     roomSocket.on('play', (e) => {
       try {
         if (!timeStamp.play.has(e)) {
+          try {
+            dispatch(togglePlayer(true));
+            console.log('toggled');
+          } catch (e) {
+            console.error(e);
+          }
           // not seek again
           timeStamp.seek.add(e);
           const moviePlayer = document.getElementById(player.id);
