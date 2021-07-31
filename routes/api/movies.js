@@ -15,6 +15,7 @@ router.get('/', async(req, res) => {
   try {
     let movies = await Movie
       .find({})
+      .sort({_id: -1})
       .select(['-subtitles', '-onlineLink'])
       .lean();
           
