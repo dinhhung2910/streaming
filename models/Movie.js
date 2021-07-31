@@ -55,6 +55,9 @@ const movieSchema = new mongoose.Schema({
       type: String
     }
   },
+  originalLanguage: {
+    type: String
+  },
   subtitles: [{
     language: {
       type: String,
