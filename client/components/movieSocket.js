@@ -162,7 +162,7 @@ function MovieSocket(props) {
   /* Init socket when mount element
    */
   useEffect(() => {
-    const roomSocket = io('http://kaito-bk.com/room',
+    const roomSocket = io('https://kaito-bk.com/room',
       {path: '/streaming/server/socket.io'},
     );
     setSocket(roomSocket);
