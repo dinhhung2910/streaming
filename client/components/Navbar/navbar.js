@@ -15,9 +15,10 @@ import Link from 'next/link';
 import NavLink from './navlink';
 import {selectShowMoviePlayer} from '../../lib/slices/moviePlayerSlice';
 
-const LOGO_URL = '/img/Fakeflix_logo.png';
-const MOBILE_LOGO_URL = '/img/Fakeflix_favicon_192.png';
-const PROFILE_PIC_URL = '/img/Fakeflix_profilepic.png';
+// for server only
+const LOGO_URL = '/streaming/img/Fakeflix_logo.png';
+const MOBILE_LOGO_URL = '/streaming/img/Fakeflix_favicon_192.png';
+const PROFILE_PIC_URL = '/streaming/img/Fakeflix_profilepic.png';
 
 const Navbar = () => {
   const {width} = useViewport();

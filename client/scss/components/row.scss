@@ -4,6 +4,7 @@
 .Row {
     display: block;
     padding: 1.5vh 0;
+    overflow: hidden;
 
     @include mq('md'){
         padding: 3vh 0;
