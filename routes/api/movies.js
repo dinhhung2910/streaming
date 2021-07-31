@@ -82,7 +82,7 @@ router.get('/code/:code', async(req, res) => {
       const x = Object.assign(movie, {
         images: {
           poster: assestsBaseURL + movie.images.poster,
-          background: assestsBaseURL + item.background
+          background: assestsBaseURL +  movie.images.background
         },
         subtitles: movie.subtitles.map(subtitle => {
           subtitle.link = assestsBaseURL + subtitle.link;
