@@ -23,7 +23,8 @@ router.get('/', async(req, res) => {
 
       const x = Object.assign(item, {
         images: {
-          poster: assestsBaseURL + item.images.poster
+          poster: assestsBaseURL + item.images.poster,
+          background: assestsBaseURL + item.background
         }
       });
       return x;
