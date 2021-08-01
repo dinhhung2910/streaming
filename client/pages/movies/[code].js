@@ -58,16 +58,7 @@ export async function getStaticPaths() {
  * @return {Component} Movie main page
  */
 export default function c(props) {
-  // const {movie, allMovies} = props;
-  const dispatch = useDispatch();
-  const showMoviePlayer = useSelector(selectShowMoviePlayer);
-
-  useEffect(() => {
-    dispatch(togglePlayer(false));
-
-    return () => dispatch(togglePlayer(false));
-  }, []);
-
+  // const {movie, allMovies} = props
   const movie = props.movie || {
     images: {},
     sources: [],
@@ -75,6 +66,14 @@ export default function c(props) {
   };
   const allMovies = props.allMovies || [];
 
+  const dispatch = useDispatch();
+  const showMoviePlayer = useSelector(selectShowMoviePlayer);
+
+  useEffect(() => {
+    dispatch(togglePlayer(false));
+
+    return () => dispatch(togglePlayer(false));
+  }, [movie.code]);
 
   return (
     <MoviePageLayout>
