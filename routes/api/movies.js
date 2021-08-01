@@ -25,7 +25,7 @@ router.get('/', async(req, res) => {
       const x = Object.assign(item, {
         images: {
           poster: assestsBaseURL + item.images.poster,
-          background: assestsBaseURL + item.background
+          background: item.images.background ? (assestsBaseURL + item.images.background) : '',
         }
       });
       return x;
@@ -83,7 +83,7 @@ router.get('/code/:code', async(req, res) => {
       const x = Object.assign(movie, {
         images: {
           poster: assestsBaseURL + movie.images.poster,
-          background: assestsBaseURL +  movie.images.background
+          background: movie.images.background ? (assestsBaseURL +  movie.images.background) : ''
         },
         subtitles: movie.subtitles.map(subtitle => {
           subtitle.link = assestsBaseURL + subtitle.link;
