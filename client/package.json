@@ -13,7 +13,7 @@
     "@reduxjs/toolkit": "^1.6.0",
     "@rocketseat/react-plyr": "^1.0.1",
     "@svgr/webpack": "^5.5.0",
-    "bootstrap": "^5.0.2",
+    "bootstrap": "^5.1.0",
     "framer-motion": "^4.1.17",
     "ionicons": "^5.5.2",
     "next": "latest",
@@ -27,7 +27,7 @@
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.4",
     "react-resize-detector": "^6.7.4",
-    "sass": "^1.36.0",
+    "sass": "^1.37.0",
     "socket.io-client": "^4.1.2",
     "swiper": "^6.8.0",
     "uuid": "^8.3.2",
@@ -35,7 +35,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^7.30.0",
+    "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-next": "^11.0.1",
     "eslint-plugin-react": "^7.24.0"
