@@ -23,6 +23,7 @@ export async function getStaticProps(context) {
 
   const res1 = await fetch(BASE_API_URL + '/api/movies');
   const allMovies = await res1.json();
+  const allAvailableMovies = (Array.isArray(allMovies) ? allMovies : []).filter((en) => en.isAvailable);
 
   const res2 = await fetch(BASE_API_URL + '/api/movies/code/' + code);
   const movie = await res2.json();
@@ -30,7 +31,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       movie,
-      allMovies,
+      allMovies: allAvailableMovies,
     },
     revalidate: 10,
   };

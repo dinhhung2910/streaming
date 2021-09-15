@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {io} from 'socket.io-client';
 import {togglePlayer} from '../lib/slices/moviePlayerSlice';
-import {BASE_API_URL} from '../utils/constants';
+import {BASE_API_URL, BASE_SERVER} from '../utils/constants';
 /**
  *
  * @param {*} props props
@@ -162,7 +162,7 @@ function MovieSocket(props) {
   /* Init socket when mount element
    */
   useEffect(() => {
-    const roomSocket = io('https://kaito-bk.com/room',
+    const roomSocket = io(BASE_SERVER + '/room',
       {path: '/streaming/server/socket.io'},
     );
     setSocket(roomSocket);
