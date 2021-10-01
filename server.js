@@ -38,7 +38,7 @@ app.get('/', function(req, res) {
 app.use('/api/movies', require('./routes/api/movies'));
 
 app.get('/index.html', function(req, res) {
-  res.sendFile(path.join(__dirname + '/index-text.html'))
+  res.sendFile(path.join(__dirname + '/index.html'))
 })
 
 app.get('/streaming/**', function(req, res) {
