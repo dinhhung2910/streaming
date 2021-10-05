@@ -13,7 +13,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "@rocketseat/react-plyr": "^1.0.1",
     "@svgr/webpack": "^5.5.0",
-    "bootstrap": "^5.1.1",
+    "bootstrap": "^5.1.2",
     "framer-motion": "^4.1.17",
     "ionicons": "^5.5.3",
     "next": "latest",
