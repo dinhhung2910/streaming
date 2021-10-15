@@ -29,7 +29,7 @@
     "react-resize-detector": "^6.7.6",
     "sass": "^1.43.2",
     "socket.io-client": "^4.2.0",
-    "swiper": "^7.0.7",
+    "swiper": "^7.0.8",
     "uuid": "^8.3.2",
     "wnumb": "^1.2.0"
   },
