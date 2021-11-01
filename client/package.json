@@ -14,7 +14,7 @@
     "@rocketseat/react-plyr": "^1.0.1",
     "@svgr/webpack": "^5.5.0",
     "bootstrap": "^5.1.1",
-    "framer-motion": "^4.1.17",
+    "framer-motion": "^5.0.1",
     "ionicons": "^5.5.3",
     "next": "latest",
     "nouislider": "^15.4.0",
