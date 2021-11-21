@@ -97,6 +97,7 @@ const PlyrPlayer = ({movie, width}) => {
 
   return (
     <Plyr
+      crossorigin="anonymous"
       source={{
         type: 'video',
         sources: (movie && movie.sources) ?

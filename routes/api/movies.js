@@ -6,6 +6,7 @@ const config = require('config');
 
 const assestsBaseURL = config.get('assestsBaseURL');
 const serverBaseURL = config.get('serverBaseURL');
+const videoBaseURL = config.get('videoBaseURL');
 
 const LevenshteinDistance = require('../../utils/LevensteinDistance');
 
@@ -90,7 +91,7 @@ router.get('/code/:code', async(req, res) => {
           return subtitle;
         }),
         sources: movie.sources.map(source => {
-          source.link = serverBaseURL + source.link;
+          source.link = videoBaseURL + source.link;
           return source;
         })
       });
