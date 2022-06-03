@@ -21,7 +21,7 @@
     "owl.carousel": "^2.3.4",
     "photoswipe": "^4.1.3",
     "plyr": "^3.6.9",
-    "plyr-react": "^3.2.0",
+    "plyr-react": "^5.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^4.3.1",
