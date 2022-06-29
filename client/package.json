@@ -17,7 +17,7 @@
     "framer-motion": "^5.0.2",
     "ionicons": "^5.5.3",
     "next": "latest",
-    "nouislider": "^15.5.0",
+    "nouislider": "^15.6.0",
     "owl.carousel": "^2.3.4",
     "photoswipe": "^4.1.3",
     "plyr": "^3.6.9",
@@ -28,7 +28,7 @@
     "react-redux": "^7.2.6",
     "react-resize-detector": "^6.7.6",
     "sass": "^1.43.4",
-    "socket.io-client": "^4.3.2",
+    "socket.io-client": "^4.5.1",
     "swiper": "^7.2.0",
     "uuid": "^8.3.2",
     "wnumb": "^1.2.0"
