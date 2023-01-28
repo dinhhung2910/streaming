@@ -13,6 +13,6 @@ app.use(function(req, res, next) {
 // Init middleware
 app.use(express.static(path.join(__dirname, 'public')));
 
-server.listen(3001, function () {
-  console.log('Server listening on port 3001')
+server.listen(process.env.APP_PORT, function () {
+  console.log(`Server listening on port ${process.env.APP_PORT}`)
 })
