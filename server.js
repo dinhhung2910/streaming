@@ -3,6 +3,9 @@ const fs = require('fs')
 const path = require('path')
 var http = require('http');
 
+// Read config from .env file
+require('dotenv').config()
+
 const app = express();
 const connectDB = require('./config/db');
 
