@@ -11,6 +11,9 @@ const connectDB = require('./config/db');
 
 var server  = http.createServer(app);
 
+// Read config from .env file
+require('dotenv').config()
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
