@@ -3,13 +3,13 @@ const fs = require('fs')
 const path = require('path')
 var http = require('http');
 
+// Read config from .env file
+require('dotenv').config()
+
 const app = express();
 const connectDB = require('./config/db');
 
 var server  = http.createServer(app);
-
-// Read config from .env file
-require('dotenv').config()
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
