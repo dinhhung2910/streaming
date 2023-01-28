@@ -8,6 +8,9 @@ const connectDB = require('./config/db');
 
 var server  = http.createServer(app);
 
+// Read config from .env file
+require('dotenv').config()
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -92,8 +95,8 @@ app.get('/subtitles/:filename', function(req, res) {
   res.sendFile(path.join(__dirname, '/cdn/public/subtitles/' + req.params.filename));
 });
 
-server.listen(5001, function () {
-  console.log('Listening on port 5001!')
+server.listen(process.env.APP_PORT, function () {
+  console.log(`Listening on port ${process.env.APP_PORT}!`)
 })
 
 io.on('connection', function(socket){
