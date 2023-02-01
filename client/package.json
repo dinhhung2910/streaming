@@ -27,7 +27,7 @@
     "react-icons": "^4.3.1",
     "react-redux": "^8.0.5",
     "react-resize-detector": "^8.0.3",
-    "sass": "^1.57.1",
+    "sass": "^1.58.0",
     "socket.io-client": "^4.5.4",
     "swiper": "^8.4.6",
     "uuid": "^9.0.0",
