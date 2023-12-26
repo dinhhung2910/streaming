@@ -15,7 +15,7 @@
     "@svgr/webpack": "^6.2.1",
     "bootstrap": "^5.1.3",
     "framer-motion": "^10.0.1",
-    "ionicons": "^6.1.1",
+    "ionicons": "^7.2.2",
     "next": "14.0.4",
     "nouislider": "^15.5.0",
     "owl.carousel": "^2.3.4",
