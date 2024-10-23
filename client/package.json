@@ -38,6 +38,6 @@
     "eslint": "^8.56.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-next": "^14.1.0",
-    "eslint-plugin-react": "^7.26.1"
+    "eslint-plugin-react": "^7.37.2"
   }
 }
