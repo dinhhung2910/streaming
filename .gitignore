@@ -4,3 +4,4 @@ assets/*
 config/default.json
 client/dist/*
 !**/.gitkeep
+.env

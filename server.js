@@ -1,18 +1,14 @@
-const express = require('express')
-const fs = require('fs')
-const path = require('path')
-var http = require('http');
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const config = require('./config')
 
-// Read config from .env file
-require('dotenv').config()
+var http = require('http');
 
 const app = express();
 const connectDB = require('./config/db');
 
 var server  = http.createServer(app);
-
-// Read config from .env file
-require('dotenv').config()
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -98,8 +94,8 @@ app.get('/subtitles/:filename', function(req, res) {
   res.sendFile(path.join(__dirname, '/cdn/public/subtitles/' + req.params.filename));
 });
 
-server.listen(process.env.APP_PORT, function () {
-  console.log(`Listening on port ${process.env.APP_PORT}!`)
+server.listen(config.APP_PORT, function () {
+  console.log(`Listening on port ${config.APP_PORT}!`)
 })
 
 io.on('connection', function(socket){

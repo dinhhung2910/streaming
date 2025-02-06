@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const Movie = require('../../models/Movie');
-const config = require('config');
+const config = require('../../config');
 
-const assestsBaseURL = config.get('assestsBaseURL');
-const serverBaseURL = config.get('serverBaseURL');
-const videoBaseURL = config.get('videoBaseURL');
+const assestsBaseURL = config.ASSETS_BASE_URL;
+const serverBaseURL = config.SERVER_BASE_URL;
+const videoBaseURL = config.VIDEO_BASE_URL;
+const defaultFileName = config.DEFAULT_FILE_NAME;
 
 const LevenshteinDistance = require('../../utils/LevensteinDistance');
 
@@ -133,7 +134,7 @@ router.post(
       code = code.replace(/ /g, '-');
       code = code + '-' + (Date.now() % 100000);
 
-      if (!onlineLink) onlineLink = config.get("defaultFileName");
+      if (!onlineLink) onlineLink = defaultFileName;
       let movieObject = {
         name, code, year, tags, point, images, subtitles, onlineLink
       }
