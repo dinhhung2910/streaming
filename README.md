@@ -1,6 +1,14 @@
-This is a basic sample of how to do video streaming using Node.js and HTML5
+# Streaming application
 
-# Install
+## Structure
+
+| Module  | Location | Description |
+| ------------- | ------------- | - |
+| Streaming backend  | [/](./)  | Backend component (NodeJS) |
+| Streaming CDN  | [/cdn](./cdn/)  | CDN component - serve subtitles, images (NodeJS) |
+| Streaming fronent | [/client](./client/) | Frontend component (NextJS) |
+
+## Streaming backend
 
 - git clone
 - npm install

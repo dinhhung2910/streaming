@@ -1,7 +1,7 @@
 {
-  "name": "video-stream-sample",
-  "version": "1.0.0",
-  "description": "Streaming video example",
+  "name": "streaming-backend",
+  "version": "1.1.0",
+  "description": "Streaming Backend",
   "main": "server.js",
   "engines": {
     "node": ">=6.2.0"
@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nodemon server.js"
   },
-  "author": "daspinola",
+  "author": "dinhhung2910",
   "license": "MIT",
   "dependencies": {
     "bootstrap-4-grid": "^3.4.0",
